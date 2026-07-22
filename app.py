@@ -77,6 +77,7 @@ if run:
                     "tt Code": r.tt_code or "N/A",
                     "Release Date": r.release_date or "N/A",
                     "Domestic Box Office": r.domestic_total or "N/A",
+                    "Domestic Opening": r.domestic_opening or "N/A",
                     "Widest Release": r.widest_release or "N/A",
                     "Weeks in Theaters": r.weeks_in_theaters or "N/A",
                     "Prev Weekend Gross": r.prev_weekend_gross or "N/A",
