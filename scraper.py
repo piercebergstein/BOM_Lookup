@@ -63,6 +63,7 @@ class BoxOfficeResult:
     tt_code: Optional[str] = None  # IMDb tt-code, e.g. "tt15398776"
     release_date: Optional[str] = None
     domestic_total: Optional[str] = None
+    domestic_opening: Optional[str] = None
     widest_release: Optional[str] = None
     weeks_in_theaters: Optional[str] = None
     prev_weekend_gross: Optional[str] = None
@@ -521,6 +522,9 @@ def parse_release_page(html: str) -> dict:
         # what the old logic used to do by mistake.
         domestic_total = "$0"
 
+    # --- Domestic Opening ---
+    domestic_opening = _extract_summary_label_value(soup, "Domestic Opening")
+
     # --- Widest Release ---
     # (fallback only - the weekend-table-derived value in lookup_title takes
     # priority since it's more reliable; this is just used when that isn't
@@ -541,6 +545,7 @@ def parse_release_page(html: str) -> dict:
         "tt_code": tt_code,
         "release_date": release_date,
         "domestic_total": domestic_total,
+        "domestic_opening": domestic_opening,
         "widest_release": widest_release,
         "release_group_url": release_group_url,
         "release_base_url": domestic_row["release_base_url"],
@@ -586,6 +591,7 @@ def lookup_title(title: str) -> BoxOfficeResult:
         result.tt_code = parsed["tt_code"] or (tt_match.group(1).lower() if tt_match else None)
         result.release_date = parsed["release_date"]
         result.domestic_total = parsed["domestic_total"]
+        result.domestic_opening = parsed["domestic_opening"]
         result.widest_release = parsed["widest_release"]
         result.status = "ok"
 
